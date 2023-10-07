@@ -1,8 +1,15 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {RxCrossCircled} from "react-icons/rx"
-import {AiOutlineHome,AiFillSound,AiOutlineBell,AiOutlineMenu, AiFillFolder, } from "react-icons/ai"
+import {AiOutlineHome,AiFillSound,AiFillCaretDown,AiOutlineMenu,AiOutlineArrowLeft, AiOutlineDown,AiOutlineArrowRight } from "react-icons/ai"
 import {PiUserCircleGearLight,PiNewspaperClippingDuotone } from "react-icons/pi"
+import {FiUpload} from "react-icons/fi";
+import {FaLock} from "react-icons/fa"
+import {RxCross2} from "react-icons/rx"
+import {BsThreeDots} from "react-icons/bs"
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import { Button, Modal } from 'flowbite-react';
 
 const navigation = [
   { name: 'Home', href: '#', icon: AiOutlineHome, current: false },
@@ -34,7 +41,10 @@ function classNames(...classes) {
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
+  const [openModal, setOpenModal] = useState("");
+  const props = { openModal, setOpenModal };
   return (
+
     <>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -359,26 +369,182 @@ export default function Dashboard() {
             </div>
 
             <main className="flex-1 mx-5">
-              <div className="py-3">
-                <div className=" sm:px-6 flex justify-between md:px-0">
-                  <h1 className="text-lg font-semibold text-gray-900">You have 156 active offers available</h1>
-                  <button className='bg-[#2F54EB] px-3 py-1 rounded-md text-white'>Create New Offer</button>
+      <div className="py-3">
+        <div className="sm:px-6 flex justify-between md:px-0">
+          <h1 className="text-lg font-semibold text-gray-900">You have 156 active offers available</h1>
+          <Button className='bg-[#2F54EB] px-3  rounded-md text-white' onClick={() => props.setOpenModal('default')}>Create New Offer</Button>
+      <Modal className='mx-80  text-black my-20' show={props.openModal === 'default'} onClose={() => props.setOpenModal(undefined)}>
+        <Modal.Header><span className='py-2 text-center flex justify-center text-black'>Create New Offer</span></Modal.Header>
+        <Modal.Body >
+        <div>
+          <div className='flex mx-20 justify-between'>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Project ID</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+            <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Quantity</label>
+            <div className='flex'>
+              <input className='border-black border rounded-md' type='text' />
+              <button>-</button>
+              <span>1</span>
+              <button>+</button>
+              </div>
+            </div>
+          </div>
+          <div className='flex mx-20 justify-between'>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Project ID</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+            <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Quantity</label>
+            <div className='flex'>
+              <input className='border-black border rounded-md' type='text' />
+              <button>-</button>
+              <span>1</span>
+              <button>+</button>
+              </div>
+            </div>
+          </div>
+          <div className='flex mx-20 justify-between'>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Project ID</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+            <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Quantity</label>
+            <div className='flex'>
+              <input className='border-black border rounded-md' type='text' />
+              <button>-</button>
+              <span>1</span>
+              <button>+</button>
+              </div>
+            </div>
+          </div>
+          <div className='flex mx-20 justify-between'>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Project Name</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Project Type</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Proponent</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Country</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Methodology Type</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+            <div>
+              <label htmlFor="" className="block mb-2 ml-1 mt-4 ">Project Type</label>
+              <input className='border-black border rounded-md' type='text' />
+            </div>
+          </div>
+          
+        </div>
+        </Modal.Body>
+      </Modal>
+
+       
+        </div>
+        <div className="px-4 sm:px-6 md:px-0">
+          <div className="pt-3">
+            <div className="h-[605px] flex flex-col justify-between bg-white rounded-lg">
+              <div className='flex flex-col justify-between'>
+                <div className="flex space-x-5 mx-6 py-4 border-b border-gray-200">
+                  <button>All Offers</button>
+                  <button>Accepted Offers</button>
+                  <button>Bookmarked</button>
                 </div>
-                <div className="px-4 sm:px-6 md:px-0">
-                  {/* Replace with your content */}
-                  <div className="pt-3 ">
-                    <div className="h-[605px] bg-white  rounded-lg">
-                      <div className="flex space-x-5 mx-6 py-4 border-b border-gray-200 ">
-                    <button>All Offers</button>
-                    <button>Accepted Offers</button>
-                    <button>Bookmarked</button>
+                <div className='flex mt-3 justify-between px-8'>
+                  <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                      </svg>
                     </div>
-                    </div>
+                    <input type="search" id="default-search" className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search" required />
                   </div>
-                  {/* /End replace */}
+                    <button><FiUpload className='text-4xl p-1 px-2 border border-gray-300 rounded-lg' /></button>
+                </div>
+                <div className='flex font-semibold text-sm gap-3 mx-6 py-2'>
+                  <p className='pt-1 font-semibold'>Apply Filters</p>
+                  <button className='border px-2 py-1 flex border-gray-700 rounded-md'>Last Purchase is more than 300 <RxCross2 className='mt-1 mx-1'/></button>
+                  <button className='border px-2 py-1 flex border-gray-700 rounded-md'>Last Purchase is more than 300 <RxCross2 className='mt-1 mx-1' /></button>
+                  <button className='border px-2 py-1 flex border-gray-300 rounded-md'>Add Filters<AiFillCaretDown className='mt-1 mx-1' /></button>
+                </div>
+                <table className='mx-16 items-center text-center mt-6'>
+                  <thead className='text-sm font-semibold text-gray-600 bg-gray-300'>
+                    <tr className='border-b'>
+                      <th className='px-8'>SELECT</th>
+                      <th className='px-8'>PROJECT ID</th>
+                      <th className='px-8'>PROJECT NAME</th>
+                      <th className='px-8'>PROJECT TYPE</th>
+                      <th className='px-8'>VINTAGE</th>
+                      <th className='px-8'>QUANTITY</th>
+                      <th className='px-8'>OFFER</th>
+                      <th className='px-8'>BID</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className='border-b'>
+                      <td> <input type='checkbox' className='py-4' /></td>
+                      <td className='flex gap-2 py-4'><button><FaLock className='mt-1' /></button>#129HjH9ukL</td>
+                      <td className='px-4 py-4'>totam est tenetur</td>
+                      <td className='px-4 py-4'>totam est tenetur</td>
+                      <td className='px-4 py-4'>2011 - 2022</td>
+                      <td className='px-4 py-4'>45</td>
+                      <td className='px-4 py-4'>$26,610</td>
+                      <td className='px-4 py-4'>$26,610</td>
+                      <td className='px-4 py-4'><span className='flex gap-4 '><button><BsThreeDots /></button><button><AiOutlineDown/></button></span></td>
+                    </tr>
+                    <tr className='border-b'>
+                      <td> <input className='py-4' type='checkbox' /></td>
+                      <td className='flex gap-2 py-4'><button><FaLock className='mt-1' /></button>#129HjH9ukL</td>
+                      <td className='px-4 py-4'>totam est tenetur</td>
+                      <td className='px-4 py-4'>totam est tenetur</td>
+                      <td className='px-4 py-4'>2011 - 2022</td>
+                      <td className='px-4 py-4'>45</td>
+                      <td className='px-4 py-4'>$26,610</td>
+                      <td className='px-4 py-4'>$26,610</td>
+                      <td className='px-4 py-4'><span className='flex gap-4 '><button><BsThreeDots /></button><button><AiOutlineDown/></button></span></td>
+                    </tr>
+                    <tr className='border-b'>
+                      <td> <input className='py-4' type='checkbox' /></td>
+                      <td className='flex gap-2 py-4'><button><FaLock className='mt-1' /></button>#129HjH9ukL</td>
+                      <td className='px-4 py-4'>totam est tenetur</td>
+                      <td className='px-4 py-4'>totam est tenetur</td>
+                      <td className='px-4 py-4'>2011 - 2022</td>
+                      <td className='px-4 py-4'>45</td>
+                      <td className='px-4 py-4'>$26,610</td>
+                      <td className='px-4 py-4'>$26,610</td>
+                      <td className='px-4 py-4'><span className='flex gap-4 '><button><BsThreeDots /></button><button><AiOutlineDown/></button></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <div className='flex justify-between mx-10 py-2'>
+                  <p className="flex"><AiOutlineArrowLeft className='mt-1 mx-2' /><span >Previous</span></p>
+                  <p className="text-sm">1 2 3 ... 8 9 10</p>
+                  <p className="flex"><span>Next</span> <AiOutlineArrowRight className='mt-1 mx-2' /></p>
                 </div>
               </div>
-            </main>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
           </div>
         </div>
       </div>
