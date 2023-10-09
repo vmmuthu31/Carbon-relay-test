@@ -1,15 +1,16 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState,useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {RxCrossCircled} from "react-icons/rx"
 import {AiOutlineHome,AiFillSound,AiFillCaretDown,AiOutlineMenu,AiOutlineArrowLeft, AiOutlineDown,AiOutlineArrowRight } from "react-icons/ai"
 import {PiUserCircleGearLight,PiNewspaperClippingDuotone } from "react-icons/pi"
 import {FiUpload} from "react-icons/fi";
-import {FaLock} from "react-icons/fa"
+import {FaLock, FaUnlock} from "react-icons/fa"
 import {RxCross2} from "react-icons/rx"
 import {BsThreeDots} from "react-icons/bs"
 import 'reactjs-popup/dist/index.css';
 import {HiArrowLongRight} from "react-icons/hi2"
 import Modal from 'react-modal';
+import RowPopup from './RowPopup'; // Adjust the import path as needed
 
 const navigation = [
   { name: 'Home', href: '#', icon: AiOutlineHome, current: false },
@@ -39,7 +40,29 @@ function classNames(...classes) {
 }
 
 export default function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [rowStates, setRowStates] = useState(Array(3).fill(true)); // Initialize with 3 rows
+  const [selectedRowData, setSelectedRowData] = useState(null);
+
+  // Function to toggle the lock/unlock state for a specific row
+  const toggleLock = (rowIndex) => {
+    // Create a copy of the current rowStates
+    const updatedRowStates = [...rowStates];
+    // Toggle the state of the specific row
+    updatedRowStates[rowIndex] = !updatedRowStates[rowIndex];
+    // Update the state with the new array
+    setRowStates(updatedRowStates);
+  };
+  const openRowPopup = (rowData) => {
+    setSelectedRowData(rowData);
+  };
+
+  const closeRowPopup = () => {
+    setSelectedRowData(null);
+  };
+
+
+
   let subtitle;
 
   const customStyles = {
@@ -402,10 +425,10 @@ export default function Dashboard() {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        className='py-2 rounded-lg  my-[400px] bg-white w-[900px] mx-[800px] text-black '>
+        className='py-2 rounded-lg  my-[400px] bg-[#ffffff] w-[900px] mx-[800px] text-black '>
         <div className='flex justify-between'>
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}  className='mx-5 '><span className='py-2 text-center flex justify-center text-black'>Create New Offer</span></h2>
-        <div className="text-xl font-medium text-gray-900 dark:text-white">Small modal</div>
+       
   <button
    onClick={closeModal} className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
     <svg
@@ -565,41 +588,35 @@ export default function Dashboard() {
                     </tr>
                   </thead>
                   <tbody className='underline'>
-                    <tr className='border-b'>
-                      <td> <input type='checkbox' className='py-4' /></td>
-                      <td className='flex gap-2 py-4'><button><FaLock className='mt-1' /></button>#129HjH9ukL</td>
-                      <td className='px-4 py-4'>totam est tenetur</td>
-                      <td className='px-4 py-4'>totam est tenetur</td>
-                      <td className='px-4 py-4'>2011 - 2022</td>
-                      <td className='px-4 py-4'>45</td>
-                      <td className='px-4 py-4'>$26,610</td>
-                      <td className='px-4 py-4'>$26,610</td>
-                      <td className='px-4 py-4'><span className='flex gap-4 '><button><BsThreeDots /></button><button><AiOutlineDown/></button></span></td>
-                    </tr>
-                    <tr className='border-b'>
-                      <td> <input className='py-4' type='checkbox' /></td>
-                      <td className='flex gap-2 py-4'><button><FaLock className='mt-1' /></button>#129HjH9ukL</td>
-                      <td className='px-4 py-4'>totam est tenetur</td>
-                      <td className='px-4 py-4'>totam est tenetur</td>
-                      <td className='px-4 py-4'>2011 - 2022</td>
-                      <td className='px-4 py-4'>45</td>
-                      <td className='px-4 py-4'>$26,610</td>
-                      <td className='px-4 py-4'>$26,610</td>
-                      <td className='px-4 py-4'><span className='flex gap-4 '><button><BsThreeDots /></button><button><AiOutlineDown/></button></span></td>
-                    </tr>
-                    <tr className='border-b'>
-                      <td> <input className='py-4' type='checkbox' /></td>
-                      <td className='flex gap-2 py-4'><button><FaLock className='mt-1' /></button>#129HjH9ukL</td>
-                      <td className='px-4 py-4'>totam est tenetur</td>
-                      <td className='px-4 py-4'>totam est tenetur</td>
-                      <td className='px-4 py-4'>2011 - 2022</td>
-                      <td className='px-4 py-4'>45</td>
-                      <td className='px-4 py-4'>$26,610</td>
-                      <td className='px-4 py-4'>$26,610</td>
-                      <td className='px-4 py-4'><span className='flex gap-4 '><button><BsThreeDots /></button><button><AiOutlineDown/></button></span></td>
-                    </tr>
+                  {rowStates.map((isLocked, rowIndex) => (
+            <tr onClick={() => openRowPopup(`Row ${rowIndex + 1} Data`)} className='border-b' key={rowIndex}>
+              <td> <input className='py-4' type='checkbox' /></td>
+              <td className='flex gap-2 py-4'>
+                <button onClick={() => toggleLock(rowIndex)}>
+                  {isLocked ? <FaLock className='mt-1' /> : <FaUnlock className='mt-1' />}
+                </button>
+                
+                #129HjH9ukL
+              </td>
+            <td className='px-4 py-4'>totam est tenetur</td>
+            <td className='px-4 py-4'>totam est tenetur</td>
+            <td className='px-4 py-4'>2011 - 2022</td>
+            <td className='px-4 py-4'>45</td>
+            <td className='px-4 py-4'>$26,610</td>
+            <td className='px-4 py-4'>$26,610</td>
+            <td className='px-4 py-4'>
+              <span className='flex gap-4 '>
+                <button><BsThreeDots /></button>
+                <button><AiOutlineDown/></button>
+              </span>
+            </td>
+          </tr>
+        ))}
                   </tbody>
                 </table>
+                {selectedRowData && (
+        <RowPopup rowData={selectedRowData} onClose={closeRowPopup} />
+      )}
               </div>
               <div>
                 <div className='flex justify-between mx-10 py-2'>
