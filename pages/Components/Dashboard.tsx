@@ -76,19 +76,23 @@ export default function Dashboard() {
     },
   };
   
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+      setModalIsOpen(true);
   }
+  
+  const closeModal = () => {
+      setModalIsOpen(false);
+  }
+  
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00';
   }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+ 
 
 
   return (
@@ -266,7 +270,7 @@ export default function Dashboard() {
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:w-52 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="border-r border-gray-200 py-2 flex flex-col flex-grow bg-white overflow-y-auto">
+          <div className={`border-r border-gray-200 py-2 flex flex-col  flex-grow ${modalIsOpen ? 'opacity-50' : ''} overflow-y-auto`}>
             <div className=" sticky top-0 z-10 flex-shrink-0 py-3 bg-white border-b border-gray-200 flex px-4 items-center">
          
               <img
@@ -393,7 +397,7 @@ export default function Dashboard() {
         </div>
 
         <div className="md:pl-52">
-          <div className="  flex flex-col bg-[#f4f6f9]  md:px-8 xl:px-0">
+          <div className={`flex flex-col ${modalIsOpen ? 'opacity-20 bg-gray-500' : ''} bg-[#f4f6f9]  md:px-8 xl:px-0`}>
             <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
               <button
                 type="button"
@@ -425,9 +429,9 @@ export default function Dashboard() {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        className='py-2 rounded-lg  my-[400px] bg-[#ffffff] w-[900px] mx-[800px] text-black '>
+        className='py-2 rounded-lg  my-[400px] bg-white w-[900px] mx-[800px] text-black '>
         <div className='flex justify-between'>
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}  className='mx-5 '><span className='py-2 text-center flex justify-center text-black'>Create New Offer</span></h2>
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}  className='mx-5 '><span className=' my-2 text-center flex justify-center text-black'>Create New Offer</span></h2>
        
   <button
    onClick={closeModal} className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -496,7 +500,7 @@ export default function Dashboard() {
               </select>
             </div>
           </div>
-          <div className='bg-gray-100 px-1 py-1'>
+          <div className='bg-[#f4f6f9] px-1 py-1'>
           <div className='flex mx-20 my-5 space-x-2 justify-between'>
             <div className='w-full text-sm px-3 py-1  rounded-lg bg-white'>
               <label htmlFor="" className="block mb-2  ml-1 mt-1 ">Project Name</label>
