@@ -397,8 +397,8 @@ export default function Dashboard() {
         </div>
 
         <div className="md:pl-52">
-          <div className={`flex flex-col ${modalIsOpen ? 'opacity-20 bg-gray-500' : ''} bg-[#f4f6f9]  md:px-8 xl:px-0`}>
-            <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
+          <div className={`flex flex-col ${modalIsOpen ? 'opacity-20 bg-gray-800' : ''} bg-[#f4f6f9]  md:px-8 xl:px-0`}>
+            <div className={`sticky top-0 z-10 flex-shrink-0 h-16 ${modalIsOpen ? 'opacity-20 bg-gray-200' : ''} bg-white border-b border-gray-200 flex`}>
               <button
                 type="button"
                 className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -429,7 +429,7 @@ export default function Dashboard() {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        className='py-2 rounded-lg  my-[400px] bg-white w-[900px] mx-[800px] text-black '>
+        className='py-2 rounded-lg  my-[380px] bg-white w-[950px] mx-[800px] text-black '>
         <div className='flex justify-between'>
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}  className='mx-5 '><span className=' my-2 text-center flex justify-center text-black'>Create New Offer</span></h2>
        
@@ -456,7 +456,7 @@ export default function Dashboard() {
           <div className='flex mx-20 justify-between'>
             <div>
               <label htmlFor="" className="block font-semi text-blue-600 mb-2 ml-1 text-sm mt-2 ">Project ID</label>
-              <input className='border-black border px-8  py-2 rounded-md' type='text' />
+              <input className='border-black border px-14  py-2 rounded-md' type='text' />
               <p className='text-sm '>Enter Your Project ID</p>
             </div>
             <div>
@@ -553,7 +553,7 @@ export default function Dashboard() {
         </div>
         <div className="px-4 sm:px-6 md:px-0">
           <div className="pt-3">
-            <div className="h-[605px] flex flex-col justify-between bg-white rounded-lg">
+            <div className={`h-[605px] flex flex-col justify-between ${modalIsOpen ? 'opacity-50 bg-gray-50' : ''} bg-white rounded-lg`}>
               <div className='flex flex-col justify-between'>
                 <div className="flex space-x-5 mx-6 py-4 border-b border-gray-200">
                   <button>All Offers</button>
@@ -618,9 +618,7 @@ export default function Dashboard() {
         ))}
                   </tbody>
                 </table>
-                {selectedRowData && (
-        <RowPopup rowData={selectedRowData} onClose={closeRowPopup} />
-      )}
+             
               </div>
               <div>
                 <div className='flex justify-between mx-10 py-2'>
