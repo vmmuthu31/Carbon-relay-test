@@ -6,7 +6,7 @@ import {PiUserCircleGearLight,PiNewspaperClippingDuotone } from "react-icons/pi"
 import {FiUpload} from "react-icons/fi";
 import {FaLock, FaUnlock} from "react-icons/fa"
 import {RxCross2} from "react-icons/rx"
-import {BsThreeDots} from "react-icons/bs"
+import {BsChevronLeft, BsThreeDots} from "react-icons/bs"
 import 'reactjs-popup/dist/index.css';
 import {HiArrowLongRight} from "react-icons/hi2"
 import Modal from 'react-modal';
@@ -77,17 +77,28 @@ export default function Dashboard() {
   };
   
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen1, setModalIsOpen1] = useState(false);
 
   const openModal = () => {
       setModalIsOpen(true);
   }
+  const openModal1 = () => {
+    setModalIsOpen1(true);
+}
   
   const closeModal = () => {
       setModalIsOpen(false);
   }
+  const closeModal1 = () => {
+    setModalIsOpen1(false);
+}
   
 
   function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = '#f00';
+  }
+  function afterOpenModal1() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00';
   }
@@ -270,7 +281,7 @@ export default function Dashboard() {
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:w-52 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className={`border-r border-gray-200 py-2 flex flex-col  flex-grow ${modalIsOpen ? 'opacity-50' : ''} overflow-y-auto`}>
+          <div className={`border-r border-gray-200 py-2 flex flex-col  flex-grow ${modalIsOpen || modalIsOpen1 ? 'opacity-50' : ''} overflow-y-auto`}>
             <div className=" sticky top-0 z-10 flex-shrink-0 py-3 bg-white border-b border-gray-200 flex px-4 items-center">
          
               <img
@@ -397,8 +408,8 @@ export default function Dashboard() {
         </div>
 
         <div className="md:pl-52">
-          <div className={`flex flex-col ${modalIsOpen ? 'opacity-20 bg-gray-800' : ''} bg-[#f4f6f9]  md:px-8 xl:px-0`}>
-            <div className={`sticky top-0 z-10 flex-shrink-0 h-16 ${modalIsOpen ? 'opacity-20 bg-gray-200' : ''} bg-white border-b border-gray-200 flex`}>
+          <div className={`flex flex-col ${modalIsOpen || modalIsOpen1 ? 'opacity-20 bg-gray-800' : ''} bg-[#f4f6f9]  md:px-8 xl:px-0`}>
+            <div className={`sticky top-0 z-10 flex-shrink-0 h-16 ${modalIsOpen || modalIsOpen1 ? 'opacity-20 bg-gray-200' : ''} bg-white border-b border-gray-200 flex`}>
               <button
                 type="button"
                 className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -553,7 +564,7 @@ export default function Dashboard() {
         </div>
         <div className="px-4 sm:px-6 md:px-0">
           <div className="pt-3">
-            <div className={`h-[605px] flex flex-col justify-between ${modalIsOpen ? 'opacity-50 bg-gray-50' : ''} bg-white rounded-lg`}>
+            <div className={`h-[605px] flex flex-col justify-between ${modalIsOpen || modalIsOpen1 ? 'opacity-50 bg-gray-50' : ''} bg-white rounded-lg`}>
               <div className='flex flex-col justify-between'>
                 <div className="flex space-x-5 mx-6 py-4 border-b border-gray-200">
                   <button>All Offers</button>
@@ -602,13 +613,13 @@ export default function Dashboard() {
                 
                 #129HjH9ukL
               </td>
-            <td className='px-4 py-4'>totam est tenetur</td>
-            <td className='px-4 py-4'>totam est tenetur</td>
-            <td className='px-4 py-4'>2011 - 2022</td>
-            <td className='px-4 py-4'>45</td>
-            <td className='px-4 py-4'>$26,610</td>
-            <td className='px-4 py-4'>$26,610</td>
-            <td className='px-4 py-4'>
+            <td className='px-4 py-4'><button  onClick={openModal1}>totam est tenetur </button></td>
+            <td className='px-4 py-4'><button  onClick={openModal1}>totam est tenetur </button></td>
+            <td className='px-4 py-4'><button  onClick={openModal1}>2011 - 2022       </button></td>
+            <td className='px-4 py-4'><button  onClick={openModal1}>45                </button></td>
+            <td className='px-4 py-4'><button  onClick={openModal1}>$26,610           </button></td>
+            <td className='px-4 py-4'><button  onClick={openModal1}>$26,610           </button></td>
+          <td className='px-4 py-4'>
               <span className='flex gap-4 '>
                 <button><BsThreeDots /></button>
                 <button><AiOutlineDown/></button>
@@ -616,6 +627,114 @@ export default function Dashboard() {
             </td>
           </tr>
         ))}
+          
+      <Modal  isOpen={modalIsOpen1}
+        onAfterOpen={afterOpenModal1}
+        onRequestClose={closeModal1}
+        className='py-1 rounded-l-xl rounded-lg min-h-full  flex justify-end   text-black '>
+          <div className='bg-white min-h-screen'>
+        <div className='flex  gap-40 mx-5 justify-between'>
+   <div className='flex'> <BsChevronLeft className='mt-4 ' />    <h2 ref={(_subtitle) => (subtitle = _subtitle)}  className='mx-2 '><span className=' my-2 text-center flex text-xl justify-center text-black'>Incoming Bids</span></h2>
+   </div>
+  <button
+   onClick={closeModal1} className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg
+      className="h-5 w-5"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fillRule="evenodd"
+        d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414L11.414 10l2.293 2.293a1 1 0 11-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 10 6.293 7.707a1 1 0 010-1.414z"
+        clipRule="evenodd"
+      />
+    </svg>
+  </button>
+  
+        </div>
+        <hr className='text-xl font-bold text-black'/>      
+        
+        <div className='mx-10  rounded-tr-xl rounded-br-xl rounded-bl-xl font-semibold mt-8 cs1 text-white py-4'>
+          <div className='flex justify-center mb-4  gap-10'>
+            <p>Offer Id</p>
+            <p>Quantity</p>
+            <p>Bid</p>
+          </div>
+          <div className='flex justify-center gap-10'>
+            <p className='underline'>#129HjH9ukL</p>
+            <p>45</p>
+            <p>$26</p>
+          </div>
+        </div>
+        <div className='mt-4 border rounded-xl border-black mx-4 py-2'>
+          <div className='flex  justify-between mx-3'>
+            <div className='bg-gray-100 px-4 py-1 rounded-lg'>
+              <p className='font-semibold'>Bid</p>
+              <p className=' ml-4 font-semibold text-2xl'>$27</p>
+            </div>
+            <div className='bg-gray-100 px-4 pr-10 py-1 rounded-lg'>
+              <p className='font-semibold'>From</p>
+              <p className='ml-3 text-sm'>Company A</p>
+            </div>
+            <div className='bg-gray-100 px-4 py-1 rounded-lg'>
+              <p className='text-center font-semibold'>Chat</p>
+              <p className='text-[12px]'>Click To Chat </p>
+            </div>
+            </div>
+            <div className='flex justify-center  gap-20 '>
+              <select className='border flex space-x-5 mt-2  text-gray-500 py-1 rounded-md font-semibold pr-20'>
+                <option>Evaluating</option>
+              </select>
+              <p className='text-green-400 text-md  flex '><span className='text-4xl'>•</span><span className='mt-3'> Active</span></p>
+            </div>
+          </div>
+          <div className='mt-2 border rounded-xl border-black mx-4 py-2'>
+          <div className='flex  justify-between mx-3'>
+            <div className='bg-gray-100 px-4 py-1 rounded-lg'>
+              <p className='font-semibold'>Bid</p>
+              <p className=' ml-4 font-semibold text-2xl'>$27</p>
+            </div>
+            <div className='bg-gray-100 px-4 pr-10 py-1 rounded-lg'>
+              <p className='font-semibold'>From</p>
+              <p className='ml-3 text-sm'>Company A</p>
+            </div>
+            <div className='bg-gray-100 px-4 py-1 rounded-lg'>
+              <p className='text-center font-semibold'>Chat</p>
+              <p className='text-[12px]'>Click To Chat </p>
+            </div>
+            </div>
+            <div className='flex justify-center  gap-16 '>
+              <select className='border flex space-x-5 mt-2  text-gray-500 py-1 rounded-md font-semibold pr-20'>
+                <option>Evaluating</option>
+              </select>
+              <p className='text-orange-400 text-md  flex '><span className='text-4xl'>•</span><span className='mt-3'> On Hold</span></p>
+            </div>
+          </div>
+          <div className='mt-2 border rounded-xl border-black mx-4 py-2'>
+          <div className='flex  justify-between mx-3'>
+            <div className='bg-gray-100 px-4 py-1 rounded-lg'>
+              <p className='font-semibold'>Bid</p>
+              <p className=' ml-4 font-semibold text-2xl'>$27</p>
+            </div>
+            <div className='bg-gray-100 px-4 pr-10 py-1 rounded-lg'>
+              <p className='font-semibold'>From</p>
+              <p className='ml-3 text-sm'>Company A</p>
+            </div>
+            <div className='bg-gray-100 px-4 py-1 rounded-lg'>
+              <p className='text-center font-semibold'>Chat</p>
+              <p className='text-[12px]'>Click To Chat </p>
+            </div>
+            </div>
+            <div className='flex justify-center  gap-16 '>
+              <select className='border flex space-x-5 mt-2  text-gray-500 py-1 rounded-md font-semibold pr-20'>
+                <option>Evaluating</option>
+              </select>
+              <p className='text-red-400 text-md  flex '><span className='text-4xl'>•</span><span className='mt-3'> Withdraw</span></p>
+            </div>
+          </div>
+        </div>
+      </Modal>
                   </tbody>
                 </table>
              
